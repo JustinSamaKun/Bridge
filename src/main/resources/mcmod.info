@@ -1,0 +1,16 @@
+[
+    {
+        "modid": "Bridge",
+        "name": "Bridge",
+        "description": "Creates a link for forge plugins to access common parts of the spigot and sponge api depending on which is being run",
+        "version": "${version}",
+        "mcversion": "${mcversion}",
+        "url": "",
+        "updateUrl": "",
+        "authorList": ["Justin"],
+        "credits": "",
+        "logoFile": "",
+        "screenshots": [],
+        "dependencies": []
+    }
+]
