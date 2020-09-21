@@ -1,7 +1,6 @@
 package net.eterniamc.bridge.implementation.pixelmon;
 
 import lombok.Getter;
-import net.eterniamc.bridge.APIController;
 import net.eterniamc.bridge.implementation.forge.ForgeController;
 
 @Getter

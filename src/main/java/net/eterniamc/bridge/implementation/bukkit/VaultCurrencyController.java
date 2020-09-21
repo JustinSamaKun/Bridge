@@ -1,6 +1,5 @@
 package net.eterniamc.bridge.implementation.bukkit;
 
-import net.eterniamc.bridge.CurrencyController;
 import net.eterniamc.bridge.implementation.custom.CustomCurrencyController;
 import net.milkbowl.vault.economy.Economy;
 import net.minecraft.entity.player.EntityPlayerMP;

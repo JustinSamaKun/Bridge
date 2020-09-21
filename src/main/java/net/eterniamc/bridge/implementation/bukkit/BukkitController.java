@@ -11,11 +11,11 @@ public class BukkitController implements APIController {
     private CurrencyController currencyController;
 
     @Override
-    public void initialize(Object mod) {
+    public void initialize(Object mod) throws Exception {
         if (Bukkit.getServer().getPluginManager().getPlugin("GemsEconomy") != null) {
-            currencyController = new GemsEconomyCurrencyController();
+            currencyController = (CurrencyController) Class.forName("net.eterniamc.bridge.implementation.bukkit.GemsEconomyCurrencyController").newInstance();
         } else if (Bukkit.getServer().getPluginManager().getPlugin("Vault") != null) {
-            currencyController = new VaultCurrencyController();
+            currencyController = (CurrencyController) Class.forName("net.eterniamc.bridge.implementation.bukkit.VaultCurrencyController").newInstance();
         } else {
             currencyController = new CustomCurrencyController();
         }

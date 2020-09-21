@@ -2,7 +2,6 @@ package net.eterniamc.bridge.implementation.pixelmon;
 
 import com.pixelmonmod.pixelmon.Pixelmon;
 import com.pixelmonmod.pixelmon.api.economy.IPixelmonBankAccount;
-import net.eterniamc.bridge.CurrencyController;
 import net.eterniamc.bridge.implementation.custom.CustomCurrencyController;
 import net.minecraft.entity.player.EntityPlayerMP;
 

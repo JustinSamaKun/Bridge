@@ -1,6 +1,5 @@
 package net.eterniamc.bridge.commands;
 
-import com.pixelmonmod.pixelmon.api.command.PixelmonCommand;
 import net.eterniamc.bridge.Bridge;
 import net.minecraft.command.CommandBase;
 import net.minecraft.command.CommandException;

@@ -1,7 +1,6 @@
 package net.eterniamc.bridge.implementation.sponge;
 
 import net.eterniamc.bridge.CurrencyController;
-import net.eterniamc.bridge.implementation.custom.CustomCurrencyController;
 import net.minecraft.entity.player.EntityPlayerMP;
 import org.spongepowered.api.Sponge;
 import org.spongepowered.api.event.cause.Cause;

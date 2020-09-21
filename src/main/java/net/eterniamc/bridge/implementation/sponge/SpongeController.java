@@ -2,7 +2,6 @@ package net.eterniamc.bridge.implementation.sponge;
 
 import lombok.Getter;
 import net.eterniamc.bridge.APIController;
-import org.spongepowered.api.plugin.PluginContainer;
 
 @Getter
 public class SpongeController implements APIController {

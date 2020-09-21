@@ -1,9 +1,7 @@
 package net.eterniamc.bridge.implementation.bukkit;
 
 import me.xanium.gemseconomy.api.GemsEconomyAPI;
-import me.xanium.gemseconomy.economy.Currency;
 import net.eterniamc.bridge.CurrencyController;
-import net.eterniamc.bridge.implementation.custom.CustomCurrencyController;
 import net.minecraft.entity.player.EntityPlayerMP;
 
 public class GemsEconomyCurrencyController implements CurrencyController {
