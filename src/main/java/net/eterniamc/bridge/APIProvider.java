@@ -2,27 +2,21 @@ package net.eterniamc.bridge;
 
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
-import net.eterniamc.bridge.implementation.forge.ForgeController;
-import net.eterniamc.bridge.implementation.pixelmon.PixelmonController;
-import net.eterniamc.bridge.implementation.bukkit.BukkitController;
-import net.eterniamc.bridge.implementation.sponge.SpongeController;
 
 @RequiredArgsConstructor
 public enum APIProvider {
-    SPONGE(SpongeController.class),
-    BUKKIT(BukkitController.class),
-    PIXELMON(PixelmonController.class),
-    FORGE(ForgeController.class);
+    SPONGE("net.eterniamc.bridge.implementation.sponge.SpongeController"),
+    BUKKIT("net.eterniamc.bridge.implementation.bukkit.BukkitController"),
+    PIXELMON("net.eterniamc.bridge.implementation.pixelmon.PixelmonController"),
+    FORGE("net.eterniamc.bridge.implementation.forge.ForgeController");
 
-    private final Class<? extends APIController> controllerClass;
+    private final String controllerClass;
     @Getter
     private APIController controller;
 
     public static APIProvider getCurrentAPI() {
         if (classExists("org.spongepowered.api.Sponge")) {
             return SPONGE;
-        } else if (classExists("org.bukkit.Bukkit")) {
-            return BUKKIT;
         } else if (classExists("com.pixelmonmod.pixelmon.Pixelmon")) {
             return PIXELMON;
         } else {
@@ -35,12 +29,12 @@ public enum APIProvider {
             Class.forName(name, false, APIProvider.class.getClassLoader());
             return true;
         } catch (Exception e) {
+            return false;
         }
-        return false;
     }
 
     public void initialize(Object modInstance) throws Exception {
-        controller = controllerClass.newInstance();
-        controllerClass.getDeclaredMethod("initialize", Object.class).invoke(controller, modInstance);
+        controller = (APIController) Class.forName(controllerClass).newInstance();
+        Class.forName(controllerClass).getDeclaredMethod("initialize", Object.class).invoke(controller, modInstance);
     }
 }
