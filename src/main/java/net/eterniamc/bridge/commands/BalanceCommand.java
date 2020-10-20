@@ -10,7 +10,9 @@ import net.minecraft.server.MinecraftServer;
 import net.minecraft.util.text.TextComponentString;
 import net.minecraft.util.text.TextFormatting;
 
+import java.util.Arrays;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class BalanceCommand extends CommandBase {
     @Override
@@ -25,7 +27,7 @@ public class BalanceCommand extends CommandBase {
 
     @Override
     public String getUsage(ICommandSender sender) {
-        return "balance <player> <currency>";
+        return "balance <player> <currency...>";
     }
 
     @Override
@@ -35,8 +37,13 @@ public class BalanceCommand extends CommandBase {
 
     @Override
     public void execute(MinecraftServer server, ICommandSender sender, String[] args) throws CommandException {
+        if (args.length < 2) {
+            sender.sendMessage(new TextComponentString(getUsage(sender)));
+            return;
+        }
+
         EntityPlayerMP player = getPlayer(server, sender, args[0]);
-        String currency = args[1];
+        String currency = Arrays.stream(args, 1, args.length).collect(Collectors.joining(" "));
 
         double amount = Bridge.INSTANCE.API.getCurrencyController().getPlayerBalance(currency, player);
         sender.sendMessage(new TextComponentString(player.getName() + "'s " + currency + " balance: " + TextFormatting.GREEN + amount));

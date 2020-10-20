@@ -6,6 +6,10 @@ import net.minecraft.command.CommandException;
 import net.minecraft.command.ICommandSender;
 import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.server.MinecraftServer;
+import net.minecraft.util.text.TextComponentString;
+
+import java.util.Arrays;
+import java.util.stream.Collectors;
 
 public class SetCurrencyCommand extends CommandBase {
     @Override
@@ -15,7 +19,7 @@ public class SetCurrencyCommand extends CommandBase {
 
     @Override
     public String getUsage(ICommandSender sender) {
-        return "setcurrency <player> <currency> <amount>";
+        return "setcurrency <player> <amount> <currency...>";
     }
 
     @Override
@@ -25,9 +29,14 @@ public class SetCurrencyCommand extends CommandBase {
 
     @Override
     public void execute(MinecraftServer server, ICommandSender sender, String[] args) throws CommandException {
+        if (args.length < 3) {
+            sender.sendMessage(new TextComponentString(getUsage(sender)));
+            return;
+        }
+
         EntityPlayerMP player = getPlayer(server, sender, args[0]);
-        String currency = args[1];
-        double amount = Double.parseDouble(args[2]);
+        double amount = Double.parseDouble(args[1]);
+        String currency = Arrays.stream(args, 2, args.length).collect(Collectors.joining(" "));
 
         Bridge.INSTANCE.API.getCurrencyController().setPlayerBalance(currency, player, amount);
     }
