@@ -17,6 +17,8 @@ public enum APIProvider {
     public static APIProvider getCurrentAPI() {
         if (classExists("org.spongepowered.api.Sponge")) {
             return SPONGE;
+        } else if (classExists("org.bukkit.Bukkit")) {
+            return BUKKIT;
         } else if (classExists("com.pixelmonmod.pixelmon.Pixelmon")) {
             return PIXELMON;
         } else {

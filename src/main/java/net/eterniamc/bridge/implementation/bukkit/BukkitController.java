@@ -4,27 +4,27 @@ import lombok.Getter;
 import net.eterniamc.bridge.APIController;
 import net.eterniamc.bridge.CurrencyController;
 import net.eterniamc.bridge.implementation.custom.CustomCurrencyController;
+import net.eterniamc.bridge.implementation.pixelmon.PixelmonCurrencyController;
 import org.bukkit.Bukkit;
-import org.bukkit.plugin.java.JavaPlugin;
 
 @Getter
-public class BukkitController extends JavaPlugin implements APIController {
+public class BukkitController implements APIController {
     private CurrencyController currencyController;
 
     @Override
     public void initialize(Object mod) throws Exception {
-        if (isClassPresent("me.xanium.gemseconomy.api.GemsEconomyAPI")) {
+        if (Bukkit.getServer().getPluginManager().getPlugin("GemsEconomy") != null) {
             currencyController = (CurrencyController) Class.forName("net.eterniamc.bridge.implementation.bukkit.GemsEconomyCurrencyController").newInstance();
-        } else if (Bukkit.getServer().getPluginManager().getPlugin("Vault") != null) {
-            currencyController = (CurrencyController) Class.forName("net.eterniamc.bridge.implementation.bukkit.VaultCurrencyController").newInstance();
+        } else if (isPixelmonPresent()) {
+            currencyController = new PixelmonCurrencyController();
         } else {
             currencyController = new CustomCurrencyController();
         }
     }
 
-    private boolean isClassPresent(String clazz) {
+    private boolean isPixelmonPresent() {
         try {
-            Class.forName(clazz);
+            Class.forName("com.pixelmonmod.pixelmon.Pixelmon");
             return true;
         } catch (Exception e) {
             return false;
